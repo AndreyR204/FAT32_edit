@@ -3,12 +3,8 @@
 import os
 from datetime import datetime, date, time
 
-DEBUG_MODE = False
 
 
-def debug(message):
-    if DEBUG_MODE:
-        print(message)
 
 
 class BytesParser:
@@ -43,11 +39,6 @@ class BytesParser:
     def parse_time(self, start):
         bin_string = self.parse_bin_str(start, 2)
 
-        debug("parse_time: " + bin_string)
-        debug("\th: " + bin_string[0:5])
-        debug("\tm: " + bin_string[5:11])
-        debug("\ts: " + bin_string[11:16])
-
         hour = int(bin_string[0:5], base=2)
         minutes = int(bin_string[5:11], base=2)
         seconds = int(bin_string[11:16], base=2) * 2
@@ -56,11 +47,6 @@ class BytesParser:
 
     def parse_date(self, start):
         bin_string = self.parse_bin_str(start, 2)
-
-        debug("parse_date: " + bin_string)
-        debug("\ty: " + bin_string[:7])
-        debug("\tm: " + bin_string[7:11])
-        debug("\td: " + bin_string[11:16])
 
         year = 1980 + int(bin_string[:7], base=2)
         month = int(bin_string[7:11], base=2)
@@ -134,7 +120,6 @@ def date_to_bits(date):
     month_bin = bin(date.month)[2:].zfill(4)
     day_bin = bin(date.day)[2:].zfill(5)
     result = year_bin + month_bin + day_bin
-    debug("date_to_bits: " + result)
     return result
 
 
@@ -143,5 +128,4 @@ def time_to_bits(time):
     minute_bin = bin(time.minute)[2:].zfill(6)
     seconds_bin = bin(time.second // 2)[2:].zfill(5)
     result = hour_bin + minute_bin + seconds_bin
-    debug("time_to_bits: " + result)
     return result

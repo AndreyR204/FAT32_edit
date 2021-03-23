@@ -105,8 +105,6 @@ class File:
         return "/".join(names[::-1])
 
     def __eq__(self, other):
-        if DEBUG_MODE:
-            self._eq_debug(other)
         return self.short_name == other.short_name \
                and self.long_name == other.long_name \
                and self.attributes == other.attributes \
@@ -114,15 +112,6 @@ class File:
                and self.last_open_date == other.last_open_date \
                and self.change_datetime == other.change_datetime \
                and self._size_bytes == other._size_bytes
-
-    def _eq_debug(self, other):
-        eq_debug('\"' + self.short_name + '\"', '\"' + other.short_name + '\"')
-        eq_debug('\"' + self.long_name + '\"', '\"' + other.long_name + '\"')
-        eq_debug(self.attributes, other.attributes)
-        eq_debug(self.create_datetime, other.create_datetime)
-        eq_debug(self.last_open_date, other.last_open_date)
-        eq_debug(self.change_datetime, other.change_datetime)
-        eq_debug(self._size_bytes, other._size_bytes)
 
     def get_attributes_str(self):
         attributes_list = list()
@@ -260,10 +249,6 @@ class File:
             return False
         else:
             raise NotADirectoryError
-
-
-def eq_debug(one, other):
-    print(str(one) + (" == " if one == other else" != ") + str(other))
 
 
 def get_short_name_checksum(short_name):

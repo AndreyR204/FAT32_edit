@@ -188,7 +188,6 @@ class DirectoryBrowser:
             print('Wrong command. '
                   'Print "help" to get list of available commands.')
 
-    # noinspection PyUnusedLocal
     @reg_command(_commands, "help", usage="help", desc="prints help")
     def print_help(self, args):
         command_names = list(self._commands.keys())
