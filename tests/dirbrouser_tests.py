@@ -41,41 +41,4 @@ class DirectoryBrowserTests(unittest.TestCase):
 
         self.assertEqual(db.current, d1)
 
-    def test_cd_fail_not_found(self):
-        d = fsobjects.File("DIR", "", fsobjects.DIRECTORY)
-        d1 = fsobjects.File("DIR1", "", fsobjects.DIRECTORY)
-        d.content = [d1]
-        names = ["File1.txt", "File2.txt", "File3.txt"]
-        d1.content = list(generate_files_from_names(names))
-
-        db = dirbrowser.DirectoryBrowser(root=d)
-
-        with self.assertRaises(dirbrowser.DirectoryBrowserError):
-            db.change_directory("dir")
-
-    def test_cd_fail_not_a_directory(self):
-        d = fsobjects.File("DIR", "", fsobjects.DIRECTORY)
-        d1 = fsobjects.File("DIR1", "", fsobjects.DIRECTORY)
-        d.content = [d1]
-        names = ["File1.txt", "File2.txt", "File3.txt"]
-        d1.content = list(generate_files_from_names(names))
-
-        db = dirbrowser.DirectoryBrowser(root=d)
-
-        with self.assertRaises(dirbrowser.DirectoryBrowserError):
-            db.change_directory("DIR1/File1.txt")
-
-    def test_cd_deep(self):
-        d_root = fsobjects.File("DIR", "", fsobjects.DIRECTORY)
-        d = fsobjects.File("DIR1", "", fsobjects.DIRECTORY)
-        d1 = fsobjects.File("DIR2", "", fsobjects.DIRECTORY)
-        d_root.content = [d]
-        d.content = [d1]
-        names = ["File1.txt", "File2.txt", "File3.txt"]
-        d1.content = list(generate_files_from_names(names))
-
-        db = dirbrowser.DirectoryBrowser(root=d_root)
-        db.change_directory("DIR1/DIR2")
-
-        self.assertEqual(db.current, d1)
 

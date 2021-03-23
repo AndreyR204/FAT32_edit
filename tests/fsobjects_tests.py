@@ -4,7 +4,6 @@ import unittest
 from Fat32exp import fsobjects
 
 
-
 class FileTests(unittest.TestCase):
     def test_get_absolute_path(self):
         root = fsobjects.File("root", "root", fsobjects.DIRECTORY)
@@ -38,27 +37,3 @@ class FileTests(unittest.TestCase):
         file = fsobjects.File("file", "file", size_bytes=281382002220)
         self.assertEqual("262.06 GiB (281382002220 bytes)",
                          file.get_size_str())
-
-    def test_attr_str_full(self):
-        file = fsobjects.File("file", "file",
-                              fsobjects.READ_ONLY |
-                              fsobjects.HIDDEN |
-                              fsobjects.SYSTEM |
-                              fsobjects.VOLUME_ID |
-                              fsobjects.DIRECTORY |
-                              fsobjects.ARCHIVE)
-        self.assertEqual("read_only, hidden, system, "
-                         "volume_id, directory, archive"
-                         , file.get_attributes_str())
-
-    def test_attr_str_part(self):
-        file = fsobjects.File("file", "file",
-                              fsobjects.READ_ONLY |
-                              fsobjects.HIDDEN |
-                              fsobjects.ARCHIVE)
-        self.assertEqual("read_only, hidden, archive",
-                         file.get_attributes_str())
-
-    def test_attr_str_empty(self):
-        file = fsobjects.File("file", "file")
-        self.assertEqual("no attributes", file.get_attributes_str())
