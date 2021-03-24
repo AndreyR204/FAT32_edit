@@ -70,8 +70,6 @@ class BytesParser:
     def __len__(self):
         return len(self.byte_arr)
 
-
-# noinspection PyMissingConstructor
 class FileBytesParser(BytesParser):
     def __init__(self, file, start=0):
         if file is None:
